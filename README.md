@@ -47,10 +47,50 @@ RaviTaps Typing Test is a web application where users can test and improve their
 
 ---
 
-## 🔧 Setup Instructions
+Sure! Here's a complete, copy-ready section for your `README.md` including **Contact** and **Contributing**:
 
-1. **Clone the repository**
+---
+
+## 📬 Contact
+
+For questions, feedback, or collaboration inquiries, feel free to reach out:
+
+* **Developer**: Ravi Kalakoti
+* **Email**: [your-email@example.com](mailto:ravikalakoti16@gmail.com)
+* **GitHub**: [https://github.com/ravikalakoti](https://github.com/ravikalakoti)
+* **LinkedIn**: [https://www.linkedin.com/in/ravikalakoti](https://www.linkedin.com/in/ravi-kalakoti/)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome and appreciated!
+
+If you'd like to improve or extend this project, follow these steps:
+
+1. **Fork** the repository on GitHub.
+2. **Clone** your forked repository:
 
    ```bash
-   git clone https://github.com/your-username/ravitaps-typing.git
-   cd ravitaps-typing
+   git clone git@github.com:Ravikalakoti/RaviTaps-Typing-App.git
+   cd RaviTaps-Typing-App
+   ```
+3. **Create a new branch** for your feature or fix:
+
+   ```bash
+   git checkout -b your-feature-name
+   ```
+4. **Make your changes** and commit them:
+
+   ```bash
+   git commit -m "Add: your meaningful commit message"
+   ```
+5. **Push to your fork**:
+
+   ```bash
+   git push origin your-feature-name
+   ```
+6. **Open a Pull Request** on the main repository with a clear title and description of your changes.
+
+Let’s build something awesome together! 🚀
+
