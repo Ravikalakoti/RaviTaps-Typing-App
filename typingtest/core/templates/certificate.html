@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Typing Certificate | RaviTaps Typing</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: #f2f2f2;
+      padding: 40px;
+      color: #333;
+    }
+
+    .certificate {
+      background: #fff;
+      padding: 50px;
+      max-width: 900px;
+      margin: auto;
+      border: 10px solid #007bff;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #666;
+      font-weight: normal;
+    }
+
+    .content {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .content strong {
+      font-size: 22px;
+    }
+
+    .signature {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+    }
+
+    .signature div {
+      width: 40%;
+      text-align: center;
+      border-top: 1px solid #000;
+      padding-top: 12px;
+      font-size: 15px;
+    }
+
+    .brand {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+    }
+
+    .brand img {
+      height: 60px;
+      image-rendering: auto;
+    }
+
+    .developer {
+      text-align: right;
+      font-size: 14px;
+      margin-top: 20px;
+      color: #777;
+    }
+
+    .print-btn {
+      display: block;
+      margin: 30px auto;
+      background: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      text-align: center;
+      width: 200px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .print-btn:hover {
+      background: #218838;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .print-btn {
+        display: none;
+      }
+      .certificate {
+        box-shadow: none;
+        border: 8px solid #007bff;
+        margin: 0;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="certificate">
+    <div class="brand">
+      <img src="{% static 'logo.png' %}" alt="Brand Logo">
+    </div>
+
+    <h1>Certificate of Completion</h1>
+    <h2>This certifies that</h2>
+
+    <div class="content">
+      <strong>{{ result.username }}</strong><br>
+      has successfully completed a typing test<br>
+      with <strong>{{ result.wpm|floatformat:0 }}</strong> WPM<br>
+      and <strong>{{ result.accuracy|floatformat:0 }}%</strong> accuracy<br>
+      for a duration of <strong>{{ result.test_type|default:"N/A" }}</strong><br><br>
+      <small>Issued on {{ result.date|date:"F d, Y" }}</small>
+    </div>
+
+    <div class="signature">
+      <div><strong>Ravi Singh Kalakoti</strong><br>Instructor Signature</div>
+      <div><strong>RaviTaps Typing</strong></div>
+    </div>
+
+    <div class="developer">
+      Developed by <strong>Ravi Kalakoti</strong>
+    </div>
+  </div>
+
+  <a class="print-btn" href="javascript:window.print()">🖨️ Print Certificate</a>
+
+</body>
+</html>
