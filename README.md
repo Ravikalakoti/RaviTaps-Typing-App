@@ -47,8 +47,6 @@ RaviTaps Typing Test is a web application where users can test and improve their
 
 ---
 
-Sure! Here's a complete, copy-ready section for your `README.md` including **Contact** and **Contributing**:
-
 ---
 
 ## 📬 Contact
