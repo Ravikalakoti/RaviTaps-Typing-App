@@ -17,15 +17,23 @@ RaviTaps Typing Test is a web application where users can test and improve their
 
 ## 🖼️ Screenshots
 
-> Add screenshots here for homepage, typing page, and certificate preview.
 ### 🏠 Home Page
 ![Home](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/home.png)
 
+### 🏠 Home Page (Anonymous User)
+![Home Page - Anonymous](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/anonymous.png)
+
+### 🔐 Login Page
+![Login](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/login.png)
+
 ### ⌨️ Typing Test
-![Typing Test](screenshots/typing_test.png)
+![Typing Test](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/typing.png)
 
 ### 🏆 Certificate
-![Certificate](screenshots/certificate.png)
+![Certificate](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/certificate.png)
+
+### 📊 Result Page
+![Resuts](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/result.png)
 
 ---
 
