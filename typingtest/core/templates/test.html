@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Test</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f5f7fa;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .paragraph {
+      font-size: 20px;
+      line-height: 1.6;
+      background: #f1f3f5;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .word {
+      padding: 2px 5px;
+    }
+
+    .highlight {
+      background-color: #ffe58f;
+      border-radius: 4px;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .incorrect {
+      color: red;
+    }
+
+    #typingInput {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .result {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 30px;
+      display: none;
+      background: #e6ffed;
+      padding: 20px;
+      border-radius: 8px;
+      color: #1b5e20;
+    }
+
+    @media (max-width: 600px) {
+      .info {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Typing Test ({{ duration }} seconds)</h2>
+
+    <!-- CSRF token -->
+    <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+    <div class="info">
+      <div>⏳ Time Left: <span id="time">{{ duration }}</span>s</div>
+      <div>💨 WPM: <span id="wpm">0</span></div>
+      <div>🎯 Accuracy: <span id="accuracy">0</span>%</div>
+    </div>
+
+    <div class="paragraph" id="paragraph">
+      {% for word in text.split %}
+        <span class="word" id="word-{{ forloop.counter0 }}">{{ word }}</span>
+      {% endfor %}
+    </div>
+
+    <input type="text" id="typingInput" placeholder="Start typing here..." autofocus autocomplete="off" />
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const words = [...document.querySelectorAll(".word")];
+    const input = document.getElementById("typingInput");
+    const timeSpan = document.getElementById("time");
+    const wpmSpan = document.getElementById("wpm");
+    const accuracySpan = document.getElementById("accuracy");
+    const resultDiv = document.getElementById("result");
+    const csrfToken = document.getElementById("csrfToken").value;
+
+    let currentWordIndex = 0;
+    let correctWords = 0;
+    let totalTyped = 0;
+    let duration = parseInt("{{ duration }}");
+    let timeLeft = duration;
+
+    if (words.length) words[0].classList.add("highlight");
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === " ") {
+        e.preventDefault();
+        const typed = input.value.trim();
+        const current = words[currentWordIndex].innerText.trim();
+
+        if (typed === current) {
+          correctWords++;
+          words[currentWordIndex].classList.add("correct");
+        } else {
+          words[currentWordIndex].classList.add("incorrect");
+        }
+
+        words[currentWordIndex].classList.remove("highlight");
+        totalTyped++;
+        currentWordIndex++;
+
+        if (currentWordIndex < words.length) {
+          words[currentWordIndex].classList.add("highlight");
+          words[currentWordIndex].scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        input.value = "";
+        updateStats();
+      }
+    });
+
+    function updateStats() {
+      const timeUsed = duration - timeLeft;
+      const wpm = timeUsed > 0 ? Math.round((correctWords / timeUsed) * 60) : 0;
+      const accuracy = Math.round((correctWords / totalTyped) * 100 || 0);
+      wpmSpan.innerText = wpm;
+      accuracySpan.innerText = accuracy;
+    }
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      timeSpan.innerText = timeLeft;
+      updateStats();
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        finishTest();
+      }
+    }, 1000);
+
+    function finishTest() {
+      input.disabled = true;
+      words.forEach(w => w.classList.remove("highlight"));
+      const finalWpm = Math.round((correctWords / duration) * 60);
+      const finalAccuracy = Math.round((correctWords / totalTyped) * 100 || 0);
+
+      resultDiv.innerHTML = `
+        ✅ <strong>Test Complete!</strong><br>
+        💨 WPM: <b>${finalWpm}</b><br>
+        🎯 Accuracy: <b>${finalAccuracy}%</b>
+      `;
+      resultDiv.style.display = "block";
+
+      fetch("/save-result/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken
+        },
+        body: JSON.stringify({
+          wpm: finalWpm,
+          accuracy: finalAccuracy,
+          time_taken: duration,
+          test_type: `${duration / 60}-minute`
+        })
+      }).then(res => res.json())
+        .then(data => console.log("Saved:", data))
+        .catch(err => console.error("Error:", err));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Results | RaviTaps Typing</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 20px;
+      animation: bounceIn 1s ease-in-out;
+    }
+
+    .brand-logo img {
+      width: 50px;
+      height: auto;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    .box {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #007bff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #eaeaea;
+      font-size: 15px;
+    }
+
+    th {
+      background: #007bff;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tr:hover {
+      background: #eef6ff;
+    }
+
+    a.btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #28a745;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    a.btn:hover {
+      background: #218838;
+      transform: scale(1.05);
+    }
+
+    a.print-btn {
+      background: #17a2b8;
+      padding: 6px 14px;
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    a.print-btn:hover {
+      background: #138496;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand-logo">
+    💻 RaviTaps Typing
+  </div>
+
+  <div class="box">
+    <h2>📄 My Typing Results</h2>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>WPM</th>
+        <th>Accuracy</th>
+        <th>Test Type</th>
+        <th>Certificate</th>
+      </tr>
+      {% for r in results %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ r.wpm }}</td>
+        <td>{{ r.accuracy }}%</td>
+        <td>{{ r.test_type|default:"-" }}</td>
+        <td>
+          <a class="print-btn" href="{% url 'print_certificate' r.id %}" target="_blank">
+            Print PDF
+          </a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No results yet. Take a test to get started!</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <div style="text-align: center;">
+      <a class="btn" href="{% url 'typing-test' %}">← Back to Test</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; {{ now|date:"Y" }} RaviTaps Typing | Built with 💻 by
+    <a href="https://github.com/Ravikalakoti" target="_blank">Ravi Kalakoti</a>
+  </footer>
+
+</body>
+</html>

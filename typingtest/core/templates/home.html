@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to RaviTaps Typing</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .fade-in {
+      animation: fadeIn 1.2s ease-in-out both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 60px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    p.description {
+      font-size: 17px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: block;
+      width: 240px;
+      margin: 12px auto;
+      padding: 14px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #0056b3;
+    }
+
+    .btn.logout {
+      background: #dc3545;
+    }
+
+    .btn.logout:hover {
+      background: #c82333;
+    }
+
+    .btn.link-btn {
+      background: #28a745;
+    }
+
+    .btn.link-btn:hover {
+      background: #1e7e34;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .certificate-info {
+      margin-top: 40px;
+      text-align: left;
+      padding: 25px;
+      background: #f1f9ff;
+      border: 1px solid #cce5ff;
+      border-radius: 10px;
+      color: #004085;
+      animation: fadeIn 1.5s ease-out both;
+    }
+
+    .certificate-info h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .certificate-info p {
+      margin: 10px 0;
+    }
+
+    .certificate-info ul {
+      padding-left: 20px;
+    }
+
+    .brand-logo {
+      width: 60px;
+      margin-bottom: 20px;
+      animation: bounceIn 1s ease-in-out;
+    }
+
+    @keyframes bounceIn {
+      0%   { transform: scale(0.5); opacity: 0; }
+      60%  { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    .test-form {
+      margin-top: 30px;
+    }
+
+    .test-form .btn {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container fade-in">
+    
+    <h1>Welcome to RaviTaps Typing</h1>
+    <p class="description">
+      Improve your speed, track your progress, and earn a certificate with RaviTaps Typing!
+    </p>
+
+      <!-- Typing Test Options -->
+      <div class="test-form">
+        <h2>Select a Typing Test</h2>
+        <form method="post" action="{% url 'home' %}">
+          {% csrf_token %}
+          <button class="btn" type="submit" name="duration" value="60">⏱ 1 Minute Test</button>
+          <button class="btn" type="submit" name="duration" value="120">⏱ 2 Minute Test</button>
+          <button class="btn" type="submit" name="duration" value="180">⏱ 3 Minute Test</button>
+        </form>
+      </div>
+
+      <!-- Action Buttons -->
+      {% if user.is_authenticated %}
+      <a class="btn link-btn" href="{% url 'my-results' %}">📊 View My Results</a>
+      <a class="btn logout" href="{% url 'logout' %}">🚪 Logout</a>
+      {% endif %}
+
+      <!-- Certificate Info -->
+      <div class="certificate-info">
+        <h2>📄 Typing Certificate</h2>
+        <p>After completing a typing test, you'll get a personalized certificate showing:</p>
+        <ul>
+          <li><strong>Your Name</strong></li>
+          <li><strong>Typing Speed (WPM)</strong> and <strong>Accuracy</strong></li>
+          <li><strong>Test Duration</strong></li>
+          <li><strong>Date of Completion</strong></li>
+          <li><strong>Instructor Signature:</strong> Ravi Singh Kalakoti</li>
+        </ul>
+        <p>Download or print your certificate from your results page.</p>
+      </div>
+      <!-- Guest CTA -->
+      {% if not user.is_authenticated %}
+      <a class="btn" href="{% url 'login' %}">🔐 Login</a>
+      <a class="btn link-btn" href="{% url 'register' %}">📝 Register</a>
+      {% endif %}
+
+    <div class="footer">
+      &copy; {{ now|date:"Y" }} RaviTaps Typing | Built with 💻 by Ravi Kalakoti
+    </div>
+  </div>
+</body>
+</html>
