@@ -19,7 +19,7 @@ RaviTaps Typing Test is a web application where users can test and improve their
 
 > Add screenshots here for homepage, typing page, and certificate preview.
 ### 🏠 Home Page
-![Home](screenshots/home.png)
+![Home](https://github.com/Ravikalakoti/RaviTaps-Typing-Typing-Speed-Test-App-/blob/main/screenshorts/home.png)
 
 ### ⌨️ Typing Test
 ![Typing Test](screenshots/typing_test.png)
