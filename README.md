@@ -56,7 +56,7 @@ Sure! Here's a complete, copy-ready section for your `README.md` including **Con
 For questions, feedback, or collaboration inquiries, feel free to reach out:
 
 * **Developer**: Ravi Kalakoti
-* **Email**: [your-email@example.com](mailto:ravikalakoti16@gmail.com)
+* **Email**: [ravikalakoti16@gmail.com](mailto:ravikalakoti16@gmail.com)
 * **GitHub**: [https://github.com/ravikalakoti](https://github.com/ravikalakoti)
 * **LinkedIn**: [https://www.linkedin.com/in/ravikalakoti](https://www.linkedin.com/in/ravi-kalakoti/)
 
